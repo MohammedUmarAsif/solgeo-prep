@@ -1,0 +1,27 @@
+{
+  "shape": [
+    32,
+    32
+  ],
+  "changed_pixels": 180,
+  "decrease_pixels": 166,
+  "increase_pixels": 14,
+  "review_pixels": 0,
+  "mean_uncertainty_changed": 0.019192318012937904,
+  "provenance": {
+    "method": "early-late median with robust MAD scaling",
+    "native_product": "model-agnostic optical or SAR index",
+    "class_map": {
+      "0": "stable",
+      "1": "persistent decrease",
+      "2": "persistent increase"
+    },
+    "uncertainty": "noise-to-signal and missing-observation proxy, not calibrated probability",
+    "config": {
+      "z_threshold": 4.0,
+      "persistence_threshold": 0.75,
+      "min_valid_observations": 3,
+      "uncertainty_threshold": 0.55
+    }
+  }
+}

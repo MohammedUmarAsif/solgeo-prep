@@ -30,9 +30,7 @@ def validate_cube(cube: xr.Dataset) -> None:
         raise ValueError("Cube contains no acquisitions")
 
 
-def load_cube(
-    items: Iterable[Any], config: SearchConfig, aoi: dict[str, Any] | None = None
-) -> xr.Dataset:
+def load_cube(items: Iterable[Any], config: SearchConfig, aoi: dict[str, Any] | None = None) -> xr.Dataset:
     """Load a small, consistently gridded cube from STAC items."""
     from odc.stac import load
 
@@ -93,12 +91,16 @@ def valid_pixel_fraction(cube: xr.Dataset) -> xr.DataArray:
 def quality_report(cube: xr.Dataset) -> pd.DataFrame:
     """Create a compact acquisition-level QA table for notebook review."""
     valid = valid_pixel_fraction(cube).compute()
-    return pd.DataFrame(
-        {
-            "date": pd.to_datetime(cube.time.values),
-            "valid_pixel_fraction": np.asarray(valid.values, dtype="float64"),
-        }
-    ).sort_values("date").reset_index(drop=True)
+    return (
+        pd.DataFrame(
+            {
+                "date": pd.to_datetime(cube.time.values),
+                "valid_pixel_fraction": np.asarray(valid.values, dtype="float64"),
+            }
+        )
+        .sort_values("date")
+        .reset_index(drop=True)
+    )
 
 
 def monthly_composite(cube: xr.Dataset) -> xr.Dataset:

@@ -1,0 +1,97 @@
+{
+  "summary": {
+    "shape": [
+      32,
+      32
+    ],
+    "feature_count": 2,
+    "pixels": 192,
+    "review_features": 1,
+    "mean_uncertainty": 0.09329660387011246,
+    "provenance": {
+      "method": "threshold plus four-connected components",
+      "geometry_note": "feature polygons are pixel-space bounding boxes, not georeferenced boundaries",
+      "config": {
+        "probability_threshold": 0.6,
+        "minimum_pixels": 4,
+        "review_uncertainty_threshold": 0.45
+      }
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              6,
+              5
+            ],
+            [
+              18,
+              5
+            ],
+            [
+              18,
+              15
+            ],
+            [
+              6,
+              15
+            ],
+            [
+              6,
+              5
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "pixel_area": 120,
+        "mean_probability": 0.8999998569488525,
+        "mean_uncertainty": 0.20952387849489848,
+        "needs_review": false,
+        "coordinate_space": "pixel; apply a raster transform before GIS use"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              20,
+              19
+            ],
+            [
+              29,
+              19
+            ],
+            [
+              29,
+              27
+            ],
+            [
+              20,
+              27
+            ],
+            [
+              20,
+              19
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "pixel_area": 72,
+        "mean_probability": 0.7062500715255737,
+        "mean_uncertainty": 0.5985119019945463,
+        "needs_review": true,
+        "coordinate_space": "pixel; apply a raster transform before GIS use"
+      }
+    }
+  ]
+}

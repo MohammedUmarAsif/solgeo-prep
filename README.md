@@ -5,6 +5,7 @@ UAE desert-edge urban expansion monitor as its first end-to-end example.
 
 The reusable package is documented in [projects/01-solgeo-prep](projects/01-solgeo-prep/README.md),
 and the longer-term sequence is in [docs/project-sequence.md](docs/project-sequence.md).
+The current portfolio package map is in [projects/README.md](projects/README.md).
 
 The project answers a real planning question:
 
@@ -66,12 +67,14 @@ The default environment is analysis-first. `geolibre`, `leafmap`, DuckDB, and Ge
 
 ## Project roadmap
 
-1. **SolGeo Prep / notebook:** demonstrate a defensible end-to-end analysis.
-2. **Evaluation:** add synthetic regression tests and a small manually reviewed UAE validation set.
-3. **Data fusion:** add Sentinel-1 VV/VH and ESA WorldCover context.
-4. **App layer:** convert the notebook controls into a Streamlit or Panel app.
-5. **Advanced ML:** benchmark a TorchGeo/TerraTorch model only after labels and baselines exist.
-6. **Reporting:** optionally connect the evidence JSON to an LLM with citations and abstention rules.
+1. **SolGeo Prep:** reproducibly discover and prepare public imagery.
+2. **SolGeo Resolve:** run bounded, uncertainty-labelled model-derived resolution.
+3. **SolGeo Change:** screen persistent optical or SAR change.
+4. **SolGeo Segment:** expose candidate features for human correction.
+5. **SolGeo Embed:** benchmark low-label heads on frozen EO embeddings.
+6. **Evaluation:** add a manually reviewed UAE validation set and spatial holdouts.
+7. **App layer:** combine the packages only after their contracts and tests are stable.
+8. **Reporting:** connect verified evidence to an abstaining, citation-first report layer.
 
 ## Sources
 
