@@ -7,9 +7,9 @@ or web application without moving scientific logic into the UI.
 
 | Order | Project name | Purpose | Current state |
 |---:|---|---|---|
-| 1 | **SolGeo Prep** | STAC discovery, QA, indices, compositing, provenance | Implemented in this workspace |
-| 2 | **SolGeo Resolve** | Trustworthy Sentinel-2 model-derived super-resolution | Planned |
-| 3 | **SolGeo Change** | Persistent optical/SAR change candidates | Planned |
+| 1 | **SolGeo Prep** | STAC discovery, QA, indices, compositing, provenance | [Published](https://github.com/MohammedUmarAsif/solgeo-prep) |
+| 2 | **SolGeo Resolve** | Trustworthy Sentinel-2 model-derived super-resolution | [Published](https://github.com/MohammedUmarAsif/solgeo-resolve) |
+| 3 | **SolGeo Change** | Persistent optical/SAR change candidates | [Published](https://github.com/MohammedUmarAsif/solgeo-change) |
 | 4 | **SolGeo Segment** | Human-correctable feature extraction and vector export | Planned |
 | 5 | **SolGeo Embed** | Frozen EO embeddings and low-label task heads | Planned |
 | 6 | **SolGeo Audit** | Spatial validation, uncertainty, model cards | Planned |
@@ -35,8 +35,8 @@ declaring that it is model-derived, **Change** finds persistent candidates,
 
 ## GitHub packaging decision
 
-The first implementation remains in one local workspace until a GitHub remote is
-provided. It is structured so each project can be promoted to its own repository
-without rewriting its internal API. Before publishing, create one repository per
-project using the same README, test, versioning, and CI conventions; then keep a
-small SolGeo index repository for the composed workflow.
+The first three implementations are now separate public repositories, each using
+the same README, test, versioning, and packaging conventions. The original UAE
+monitor and the sequence document remain in this workspace as the teaching and
+composition context. Future projects should follow the same repository boundary;
+the final SolGeo Studio repository can depend on their stable APIs.
