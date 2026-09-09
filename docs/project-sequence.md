@@ -14,7 +14,8 @@ or web application without moving scientific logic into the UI.
 | 5 | **SolGeo Embed** | Frozen EO embeddings and low-label task heads | [Published](https://github.com/MohammedUmarAsif/solgeo-embed) |
 | 6 | **SolGeo Audit** | Spatial validation, uncertainty, model cards | [Published](https://github.com/MohammedUmarAsif/solgeo-audit) |
 | 7 | **SolGeo Report** | Evidence-grounded local reporting | [Published](https://github.com/MohammedUmarAsif/solgeo-report) |
-| 8 | **SolGeo Studio** | Final composed interface using the stable modules | Deferred until 1–7 are usable |
+| 8 | **SolGeo UAE Urban Edge** | Composed UAE portfolio workflow using all seven modules | [Published](https://github.com/MohammedUmarAsif/solgeo-uae-urban-edge) |
+| 9 | **SolGeo Studio** | Future desktop/web interface using the stable modules | Deferred until the showcase is expanded |
 
 ## Shared contract
 
