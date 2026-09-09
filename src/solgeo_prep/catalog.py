@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from typing import Any
 
 from shapely.geometry import box, mapping
@@ -31,6 +32,30 @@ def aoi_geometry(name: str) -> dict[str, Any]:
     return mapping(box(*AOIS[name]["bbox"]))
 
 
+def select_clearest_items(items: Iterable[Any]) -> list[Any]:
+    """Keep the clearest item per acquisition date and tile deterministically."""
+    best: dict[tuple[Any, Any], Any] = {}
+    for item in items:
+        timestamp = getattr(item, "datetime", None)
+        properties = getattr(item, "properties", {})
+        tile = properties.get("s2:mgrs_tile") or properties.get("mgrs:utm_zone") or "unknown"
+        acquisition = timestamp.date() if timestamp is not None else getattr(item, "id", "unknown")
+        key = (acquisition, tile)
+        cloud = float(properties.get("eo:cloud_cover", 100.0))
+        current = best.get(key)
+        current_cloud = (
+            float(getattr(current, "properties", {}).get("eo:cloud_cover", 100.0)) if current else 100.0
+        )
+        if current is None or cloud < current_cloud or (cloud == current_cloud and item.id < current.id):
+            best[key] = item
+
+    def sort_key(item: Any) -> str:
+        timestamp = getattr(item, "datetime", None)
+        return timestamp.isoformat() if timestamp is not None else getattr(item, "id", "")
+
+    return sorted(best.values(), key=sort_key)
+
+
 def search_sentinel_items(config: SearchConfig, aoi: dict[str, Any]) -> list[Any]:
     """Search public STAC metadata and keep the clearest item per date/tile."""
     import planetary_computer
@@ -44,12 +69,4 @@ def search_sentinel_items(config: SearchConfig, aoi: dict[str, Any]) -> list[Any
         query={"eo:cloud_cover": {"lte": config.cloud_cover_max}},
         max_items=config.max_items,
     )
-    best: dict[tuple[Any, Any], Any] = {}
-    for item in search.items():
-        tile = item.properties.get("s2:mgrs_tile") or item.properties.get("mgrs:utm_zone")
-        key = (item.datetime.date() if item.datetime else item.id, tile)
-        cloud = float(item.properties.get("eo:cloud_cover", 100.0))
-        current = best.get(key)
-        if current is None or cloud < float(current.properties.get("eo:cloud_cover", 100.0)):
-            best[key] = item
-    return sorted(best.values(), key=lambda item: item.datetime or item.id)
+    return select_clearest_items(search.items())

@@ -26,6 +26,8 @@ blocks so future projects can focus on their question and validation.
   baseline-versus-latest change surface;
 - writes provenance suitable for a human report or a constrained AI reporting
   layer;
+- exports small analysis layers as compressed GeoTIFFs with CRS, transform,
+  nodata, and checksum-backed run manifests;
 - stays honest about proxies, uncertainty, and the need for local validation.
 
 ## Install and test
@@ -46,6 +48,17 @@ The metadata-only CLI is useful for checking a run before loading imagery:
 ```powershell
 solgeo-prep search --aoi "Dubai urban cluster" --start 2025-01-01 --end 2025-03-31
 ```
+
+The offline showcase produces a complete, network-free evidence package:
+
+```powershell
+solgeo-prep demo --output-dir outputs/solgeo-prep-demo
+```
+
+It writes `manifest.json`, `evidence.json`, `quality_report.csv`, and three
+georeferenced raster outputs: latest NDVI, a transparent change score, and a
+binary review mask. The demo is synthetic and is labelled as such; it is a
+regression and portfolio artifact, not a claim about real UAE conditions.
 
 ## Minimal usage
 

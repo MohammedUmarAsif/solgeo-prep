@@ -1,0 +1,96 @@
+{
+  "tool": "solgeo-prep",
+  "aoi": "Dubai demo window",
+  "stac_url": "https://planetarycomputer.microsoft.com/api/stac/v1",
+  "collection": "sentinel-2-l2a",
+  "analysis_crs": "EPSG:32640",
+  "resolution_m": 20,
+  "indices": {
+    "NDVI": "(B08-B04)/(B08+B04)",
+    "NDWI": "(B03-B08)/(B03+B08)",
+    "NDBI": "(B11-B08)/(B11+B08)",
+    "EVI": "2.5*(B08-B04)/(B08+6B04-7.5B02+1)"
+  },
+  "acquisitions": [],
+  "time_series": [
+    {
+      "date": "2024-01-01",
+      "NDVI": 0.351131796836853,
+      "NDWI": -0.4654823839664459,
+      "NDBI": -0.20956012606620789,
+      "EVI": 0.3426905870437622
+    },
+    {
+      "date": "2024-02-01",
+      "NDVI": 0.3509141206741333,
+      "NDWI": -0.46516937017440796,
+      "NDBI": -0.2094438076019287,
+      "EVI": 0.34270530939102173
+    },
+    {
+      "date": "2024-03-01",
+      "NDVI": 0.3512333631515503,
+      "NDWI": -0.46562838554382324,
+      "NDBI": -0.20961438119411469,
+      "EVI": 0.34267526865005493
+    },
+    {
+      "date": "2024-04-01",
+      "NDVI": 0.35105323791503906,
+      "NDWI": -0.4653693735599518,
+      "NDBI": -0.20951813459396362,
+      "EVI": 0.3426518440246582
+    },
+    {
+      "date": "2024-05-01",
+      "NDVI": 0.35080885887145996,
+      "NDWI": -0.46501803398132324,
+      "NDBI": -0.20938757061958313,
+      "EVI": 0.3426707983016968
+    },
+    {
+      "date": "2024-06-01",
+      "NDVI": 0.3509393632411957,
+      "NDWI": -0.46520566940307617,
+      "NDBI": -0.20945727825164795,
+      "EVI": 0.34266069531440735
+    }
+  ],
+  "quality_report": [
+    {
+      "date": "2024-01-01",
+      "valid_pixel_fraction": 1.0,
+      "invalid_pixel_fraction": 0.0
+    },
+    {
+      "date": "2024-02-01",
+      "valid_pixel_fraction": 0.9375,
+      "invalid_pixel_fraction": 0.0625
+    },
+    {
+      "date": "2024-03-01",
+      "valid_pixel_fraction": 1.0,
+      "invalid_pixel_fraction": 0.0
+    },
+    {
+      "date": "2024-04-01",
+      "valid_pixel_fraction": 1.0,
+      "invalid_pixel_fraction": 0.0
+    },
+    {
+      "date": "2024-05-01",
+      "valid_pixel_fraction": 1.0,
+      "invalid_pixel_fraction": 0.0
+    },
+    {
+      "date": "2024-06-01",
+      "valid_pixel_fraction": 1.0,
+      "invalid_pixel_fraction": 0.0
+    }
+  ],
+  "limitations": [
+    "Spectral indices are proxies, not municipal-condition ground truth.",
+    "Cloud/SCL masking does not remove every atmospheric or geometric artefact.",
+    "The anomaly score is exploratory and requires local validation."
+  ]
+}

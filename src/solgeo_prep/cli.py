@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .catalog import AOIS, aoi_geometry, search_sentinel_items
 from .config import SearchConfig
+from .demo import run_demo
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -22,6 +23,9 @@ def build_parser() -> argparse.ArgumentParser:
     search.add_argument("--end", default="2025-03-31")
     search.add_argument("--cloud", type=float, default=30.0)
     search.add_argument("--output", type=Path, default=Path("outputs/solgeo_search.json"))
+    demo = subparsers.add_parser("demo", help="Run the deterministic offline showcase")
+    demo.add_argument("--output-dir", type=Path, default=Path("outputs/solgeo_demo"))
+    demo.add_argument("--size", type=int, default=64, help="Synthetic raster width and height")
     return parser
 
 
@@ -46,4 +50,7 @@ def main(argv: list[str] | None = None) -> int:
         }
         args.output.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         print(f"Found {len(items)} acquisitions; wrote {args.output}")
+    elif args.command == "demo":
+        manifest = run_demo(args.output_dir, size=args.size)
+        print(f"Wrote deterministic SolGeo Prep demo to {manifest.parent}")
     return 0

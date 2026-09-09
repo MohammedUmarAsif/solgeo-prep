@@ -58,6 +58,13 @@ def test_search_config_rejects_invalid_cloud_threshold():
         SearchConfig(cloud_cover_max=101)
 
 
+def test_search_config_rejects_inverted_dates():
+    import pytest
+
+    with pytest.raises(ValueError, match="after"):
+        SearchConfig(start="2025-01-01", end="2024-01-01")
+
+
 def test_cube_validation_requires_scl():
     cube = synthetic_cube().drop_vars("SCL")
     import pytest

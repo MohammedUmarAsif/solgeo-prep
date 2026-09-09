@@ -1,0 +1,62 @@
+{
+  "aoi": "Dubai demo window",
+  "config": {
+    "cloud_cover_max": 30,
+    "collection": "sentinel-2-l2a",
+    "end": "2024-06-30",
+    "max_items": 200,
+    "output_crs": "EPSG:32640",
+    "resolution_m": 20,
+    "stac_url": "https://planetarycomputer.microsoft.com/api/stac/v1",
+    "start": "2024-01-01"
+  },
+  "inputs": [],
+  "limitations": [
+    "Spectral indices are screening proxies, not causal labels.",
+    "SCL masking does not remove every atmospheric or geometric artefact.",
+    "Results require local spatial and temporal validation before operational use."
+  ],
+  "outputs": {
+    "change_flagged": {
+      "bytes": 1263,
+      "crs": "EPSG:32640",
+      "path": "change_flagged.tif",
+      "sha256": "cd101e17bd9106d22b4a9989eeb75ded6b89970271c886b11ca423b17312a20c",
+      "type": "COG"
+    },
+    "change_score": {
+      "bytes": 13907,
+      "crs": "EPSG:32640",
+      "path": "change_score.tif",
+      "sha256": "bc11ed6de098ae1c6cfb0ba0daab92b60df16259f2ed8f2576b70d34d9139318",
+      "type": "COG"
+    },
+    "evidence": {
+      "bytes": 2558,
+      "path": "evidence.json",
+      "sha256": "29537b75fde750e91c884db8379871c63c39a316535b46760b47eb8cde8fee69",
+      "type": "JSON"
+    },
+    "latest_ndvi": {
+      "bytes": 15321,
+      "crs": "EPSG:32640",
+      "path": "latest_ndvi.tif",
+      "sha256": "1d3e0cde994cf7c19bdd93623690afb1eb1c0ada9340ebfad5a14f0aa1fd1fca",
+      "type": "COG"
+    },
+    "quality_report": {
+      "bytes": 176,
+      "path": "quality_report.csv",
+      "sha256": "ac43b3656875c4e77eeb4472ff754b02c3ac6d695ce6e26a2951cb128c9212b7",
+      "type": "CSV"
+    }
+  },
+  "run_id": "cee0f359bee37a3f",
+  "tool": "solgeo-prep",
+  "validation": {
+    "acquisitions": 6,
+    "change_score_definition": "100 * clipped negative index change / drop threshold",
+    "flagged_pixels": 208,
+    "minimum_valid_pixel_fraction": 0.9375
+  }
+}

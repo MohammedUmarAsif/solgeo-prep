@@ -28,6 +28,20 @@ def validate_cube(cube: xr.Dataset) -> None:
         raise ValueError("Cube must have x and y spatial dimensions")
     if cube.sizes["time"] == 0:
         raise ValueError("Cube contains no acquisitions")
+    expected_dims = {"time", "y", "x"}
+    for band in REQUIRED_BANDS:
+        if set(cube[band].dims) != expected_dims:
+            raise ValueError(f"Band {band} must have dimensions time, y, and x")
+        if cube[band].sizes != cube["B02"].sizes:
+            raise ValueError(f"Band {band} does not share the cube shape")
+    if not np.issubdtype(cube.time.dtype, np.datetime64):
+        raise ValueError("Cube time coordinate must use datetime64 values")
+    for dimension in ("x", "y"):
+        coordinates = np.asarray(cube[dimension].values)
+        if coordinates.ndim != 1 or len(coordinates) != cube.sizes[dimension]:
+            raise ValueError(f"Cube {dimension} coordinate must be one-dimensional")
+        if len(coordinates) > 1 and not np.all(np.diff(coordinates) != 0):
+            raise ValueError(f"Cube {dimension} coordinate must not repeat")
 
 
 def load_cube(items: Iterable[Any], config: SearchConfig, aoi: dict[str, Any] | None = None) -> xr.Dataset:
@@ -78,6 +92,14 @@ def add_indices(cube: xr.Dataset) -> xr.Dataset:
     cube["NDWI"] = ratio(green - nir, green + nir).where(~invalid)
     cube["NDBI"] = ratio(swir - nir, swir + nir).where(~invalid)
     cube["EVI"] = (2.5 * ratio(nir - red, nir + 6 * red - 7.5 * blue + 1)).where(~invalid)
+    formulas = {
+        "NDVI": "(B08-B04)/(B08+B04)",
+        "NDWI": "(B03-B08)/(B03+B08)",
+        "NDBI": "(B11-B08)/(B11+B08)",
+        "EVI": "2.5*(B08-B04)/(B08+6B04-7.5B02+1)",
+    }
+    for name, formula in formulas.items():
+        cube[name].attrs.update({"formula": formula, "mask": "SCL invalid classes removed"})
     return cube
 
 
@@ -85,7 +107,10 @@ def valid_pixel_fraction(cube: xr.Dataset) -> xr.DataArray:
     """Return the valid-pixel fraction for each acquisition."""
     validate_cube(cube)
     invalid = _invalid_pixels(cube)
-    return (~invalid).mean(dim=[d for d in invalid.dims if d != "time"])
+    valid_reflectance: list[xr.DataArray] = [cube[band].notnull() for band in REFLECTANCE_BANDS]
+    finite_reflectance = xr.concat(valid_reflectance, dim="band").all("band")
+    valid = (~invalid) & finite_reflectance
+    return valid.mean(dim=[d for d in valid.dims if d != "time"])
 
 
 def quality_report(cube: xr.Dataset) -> pd.DataFrame:
@@ -96,6 +121,7 @@ def quality_report(cube: xr.Dataset) -> pd.DataFrame:
             {
                 "date": pd.to_datetime(cube.time.values),
                 "valid_pixel_fraction": np.asarray(valid.values, dtype="float64"),
+                "invalid_pixel_fraction": 1 - np.asarray(valid.values, dtype="float64"),
             }
         )
         .sort_values("date")
@@ -106,7 +132,12 @@ def quality_report(cube: xr.Dataset) -> pd.DataFrame:
 def monthly_composite(cube: xr.Dataset) -> xr.Dataset:
     """Create robust monthly medians after per-pixel quality masking."""
     validate_cube(cube)
-    return cube.resample(time="1MS").median(skipna=True)
+    masked = cube.copy()
+    invalid = _invalid_pixels(masked)
+    for variable in masked.data_vars:
+        if variable != "SCL":
+            masked[variable] = masked[variable].where(~invalid)
+    return masked.resample(time="1MS").median(skipna=True)
 
 
 def summarize_time_series(
@@ -128,12 +159,15 @@ def summarize_time_series(
 
 def change_surface(cube: xr.Dataset, index: str = "NDVI", baseline_fraction: float = 0.5) -> xr.Dataset:
     """Compare the latest acquisition with an early temporal baseline."""
+    validate_cube(cube)
     if index not in cube:
         raise KeyError(f"Index {index!r} is not in the cube")
-    if not 0 < baseline_fraction <= 1:
-        raise ValueError("baseline_fraction must be greater than 0 and no greater than 1")
+    if not 0 < baseline_fraction < 1:
+        raise ValueError("baseline_fraction must be greater than 0 and less than 1")
     n = cube.sizes["time"]
     split = max(1, int(np.floor(n * baseline_fraction)))
+    if split >= n:
+        raise ValueError("cube needs at least one acquisition after the baseline")
     baseline = cube[index].isel(time=slice(0, split)).median("time", skipna=True)
     latest = cube[index].isel(time=-1)
     delta = latest - baseline

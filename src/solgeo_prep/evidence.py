@@ -11,7 +11,11 @@ from .config import SearchConfig
 
 
 def evidence_summary(
-    items: Iterable[Any], config: SearchConfig, aoi_name: str, ts: pd.DataFrame
+    items: Iterable[Any],
+    config: SearchConfig,
+    aoi_name: str,
+    ts: pd.DataFrame,
+    quality: pd.DataFrame | None = None,
 ) -> dict[str, Any]:
     """Create a bounded evidence package with methods and limitations."""
     acquisitions = [
@@ -38,6 +42,11 @@ def evidence_summary(
         },
         "acquisitions": acquisitions,
         "time_series": ts.assign(date=ts["date"].astype(str)).to_dict(orient="records"),
+        "quality_report": (
+            quality.assign(date=quality["date"].astype(str)).to_dict(orient="records")
+            if quality is not None
+            else []
+        ),
         "limitations": [
             "Spectral indices are proxies, not municipal-condition ground truth.",
             "Cloud/SCL masking does not remove every atmospheric or geometric artefact.",
