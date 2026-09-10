@@ -3620,7 +3620,7 @@ wheels = [
 
 [[package]]
 name = "solgeo-prep"
-version = "0.1.0"
+version = "0.2.0a1"
 source = { editable = "." }
 dependencies = [
     { name = "dask", extra = ["array"] },
@@ -3635,6 +3635,7 @@ dependencies = [
     { name = "plotly" },
     { name = "pyproj" },
     { name = "pystac-client" },
+    { name = "pyyaml" },
     { name = "rasterio" },
     { name = "rioxarray" },
     { name = "scikit-learn" },
@@ -3725,6 +3726,7 @@ requires-dist = [
     { name = "pystac-client", specifier = ">=0.8" },
     { name = "pytest", marker = "extra == 'all'", specifier = ">=8.3" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "rasterio", specifier = ">=1.4" },
     { name = "rioxarray", specifier = ">=0.17" },
     { name = "ruff", marker = "extra == 'all'", specifier = ">=0.9" },

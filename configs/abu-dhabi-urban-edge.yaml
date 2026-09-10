@@ -1,0 +1,12 @@
+# This is the first case-study contract. Keep it small and readable.
+# The current bundle is a synthetic method preview until reviewed real labels exist.
+case_id: abu-dhabi-urban-edge
+title: Abu Dhabi urban-edge change evidence
+aoi_name: Abu Dhabi urban cluster
+bbox: [54.35, 24.30, 54.70, 24.60]
+baseline_period: 2018-01/2018-03
+comparison_period: 2025-01/2025-03
+analysis_crs: EPSG:32640
+analysis_resolution_m: 20
+data_mode: synthetic-method-preview
+evidence_status: method-preview

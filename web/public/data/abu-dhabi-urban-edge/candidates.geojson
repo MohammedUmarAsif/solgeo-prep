@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              54.48125,
+              24.360937500000002
+            ],
+            [
+              54.48125,
+              24.421875
+            ],
+            [
+              54.393750000000004,
+              24.421875
+            ],
+            [
+              54.393750000000004,
+              24.360937500000002
+            ],
+            [
+              54.48125,
+              24.360937500000002
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "candidate-001",
+        "label": "Synthetic urban-edge candidate",
+        "area_ha": 8.32,
+        "heuristic_score": 0.996
+      }
+    }
+  ]
+}

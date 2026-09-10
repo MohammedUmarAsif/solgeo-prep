@@ -1,0 +1,159 @@
+{
+  "case": {
+    "case_id": "abu-dhabi-urban-edge",
+    "title": "Abu Dhabi urban-edge change evidence",
+    "aoi_name": "Abu Dhabi urban cluster",
+    "bbox": [
+      54.35,
+      24.3,
+      54.7,
+      24.6
+    ],
+    "baseline_period": "2018-01/2018-03",
+    "comparison_period": "2025-01/2025-03",
+    "analysis_crs": "EPSG:32640",
+    "analysis_resolution_m": 20,
+    "data_mode": "synthetic-method-preview",
+    "evidence_status": "method-preview"
+  },
+  "status": {
+    "label": "Method preview",
+    "evidence_status": "method-preview",
+    "claims_locked": true,
+    "synthetic_fixture": true,
+    "message": "Synthetic fixture for learning and interface testing. Replace with reviewed real imagery before making accuracy claims."
+  },
+  "question": "Under a fixed annotation budget, do annual embeddings improve spatial transfer and reduce false change alarms over seasonal optical baselines?",
+  "methods": [
+    {
+      "id": "s2",
+      "name": "Seasonal Sentinel-2 features",
+      "role": "Interpretation baseline"
+    },
+    {
+      "id": "alphaearth",
+      "name": "AlphaEarth annual embeddings",
+      "role": "Representation change signal"
+    },
+    {
+      "id": "fusion",
+      "name": "Evidence fusion",
+      "role": "Human-review prioritization"
+    }
+  ],
+  "metrics": {
+    "candidate_area_ha": 8.32,
+    "candidate_pixels": 208,
+    "agreement_fraction": 1.0,
+    "embedding_distance_p95": 0.424,
+    "minimum_valid_pixel_fraction": 1.0
+  },
+  "time_series": [
+    {
+      "date": "2024-01-01",
+      "ndvi": 0.351,
+      "ndbi": -0.21
+    },
+    {
+      "date": "2024-02-01",
+      "ndvi": 0.351,
+      "ndbi": -0.209
+    },
+    {
+      "date": "2024-03-01",
+      "ndvi": 0.351,
+      "ndbi": -0.21
+    },
+    {
+      "date": "2024-04-01",
+      "ndvi": 0.351,
+      "ndbi": -0.21
+    },
+    {
+      "date": "2024-05-01",
+      "ndvi": 0.351,
+      "ndbi": -0.209
+    },
+    {
+      "date": "2024-06-01",
+      "ndvi": 0.351,
+      "ndbi": -0.209
+    }
+  ],
+  "quality": [
+    {
+      "date": "2024-01-01",
+      "valid_fraction": 1.0
+    },
+    {
+      "date": "2024-02-01",
+      "valid_fraction": 1.0
+    },
+    {
+      "date": "2024-03-01",
+      "valid_fraction": 1.0
+    },
+    {
+      "date": "2024-04-01",
+      "valid_fraction": 1.0
+    },
+    {
+      "date": "2024-05-01",
+      "valid_fraction": 1.0
+    },
+    {
+      "date": "2024-06-01",
+      "valid_fraction": 1.0
+    }
+  ],
+  "layers": [
+    {
+      "id": "before",
+      "label": "Baseline composite",
+      "path": "before_rgb.png",
+      "kind": "rgb"
+    },
+    {
+      "id": "after",
+      "label": "Comparison composite",
+      "path": "after_rgb.png",
+      "kind": "rgb"
+    },
+    {
+      "id": "spectral",
+      "label": "Spectral change score",
+      "path": "spectral_change.png",
+      "kind": "score"
+    },
+    {
+      "id": "embedding",
+      "label": "Embedding distance",
+      "path": "embedding_distance.png",
+      "kind": "score"
+    },
+    {
+      "id": "agreement",
+      "label": "Evidence agreement",
+      "path": "agreement.png",
+      "kind": "agreement"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate-001",
+      "label": "Synthetic urban-edge candidate",
+      "area_ha": 8.32,
+      "score": 0.996,
+      "interpretation": "Review candidate: spectral and embedding signals are elevated in this fixture."
+    }
+  ],
+  "limitations": [
+    "This preview uses a deterministic synthetic fixture and is not an observation of Abu Dhabi.",
+    "Embedding distance is a screening score, not a calibrated probability of change.",
+    "No accuracy number is shown until independent spatial labels are reviewed."
+  ],
+  "learning": {
+    "start_here": "Read docs/LEARNING-PATH.md, then run the CLI command shown in docs/REPRODUCE.md.",
+    "next_exercise": "Change the fusion weights, rebuild the bundle, and explain how the candidate area changes."
+  }
+}

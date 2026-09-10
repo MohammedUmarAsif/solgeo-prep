@@ -8,3 +8,11 @@ __pycache__/
 # Generated analyses are reproducible products, not source code.
 outputs/*
 !outputs/.gitkeep
+
+# Reproducible case runs are generated locally and published selectively.
+runs/*
+!runs/.gitkeep
+web/node_modules/
+web/.next/
+web/out/
+web/tsconfig.tsbuildinfo

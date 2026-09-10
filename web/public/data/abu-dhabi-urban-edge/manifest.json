@@ -1,0 +1,84 @@
+{
+  "aoi": "Abu Dhabi urban cluster",
+  "config": {
+    "cloud_cover_max": 10.0,
+    "collection": "sentinel-2-l2a",
+    "end": "2025-03-31",
+    "max_items": 200,
+    "output_crs": "EPSG:32640",
+    "resolution_m": 20,
+    "stac_url": "https://planetarycomputer.microsoft.com/api/stac/v1",
+    "start": "2018-01-01"
+  },
+  "inputs": [],
+  "limitations": [
+    "Spectral indices are screening proxies, not causal labels.",
+    "SCL masking does not remove every atmospheric or geometric artefact.",
+    "Results require local spatial and temporal validation before operational use."
+  ],
+  "outputs": {
+    "after_rgb": {
+      "bytes": 7667,
+      "path": "after_rgb.png",
+      "sha256": "14ebca84ef8a3cb08b1579d47a0a33094342f71e9a6bccc3f637ec16b3547e1f",
+      "type": "web-asset"
+    },
+    "agreement": {
+      "bytes": 276,
+      "path": "agreement.png",
+      "sha256": "41424bb75514d5099462800d119e621e3fac003fb98b12abaad377cb6f7d8481",
+      "type": "web-asset"
+    },
+    "before_rgb": {
+      "bytes": 7865,
+      "path": "before_rgb.png",
+      "sha256": "b2818fc002b5ca7d4e0831b827b7fd46ac8d7505b5c0d5d4f14def65c3f9672e",
+      "type": "web-asset"
+    },
+    "candidates": {
+      "bytes": 849,
+      "path": "candidates.geojson",
+      "sha256": "a425687a01954346dff16935aa9596a390e5e2ac9d602a5a4dc97f817b1c7e5c",
+      "type": "web-asset"
+    },
+    "case_study": {
+      "bytes": 4047,
+      "path": "case-study.json",
+      "sha256": "c84c358502d0d829f19a60a917a414532588a720665b45237c6f06c01c3769f7",
+      "type": "JSON"
+    },
+    "embedding_distance": {
+      "bytes": 528,
+      "path": "embedding_distance.png",
+      "sha256": "44bc6acb68bca96516e82b5e249f56d06a5277076fc207b46fefa7fc9ea5000e",
+      "type": "web-asset"
+    },
+    "embedding_distance_cog": {
+      "bytes": 4039,
+      "path": "embedding_distance.tif",
+      "sha256": "4f108b91cf2a6818b74abd80fcbe161b7be47debf4b324fea5b75167eaede05d",
+      "type": "COG"
+    },
+    "heuristic_score": {
+      "bytes": 14549,
+      "path": "heuristic_score.tif",
+      "sha256": "cfa01058092f12eeeca64862b8b8a1a0712c025123e733c33e362980d49a3ed1",
+      "type": "COG"
+    },
+    "spectral_change": {
+      "bytes": 4388,
+      "path": "spectral_change.png",
+      "sha256": "f05c236495f5503e6087aed466bfb9f24a36daa203b362b8def97a4f102bd48e",
+      "type": "web-asset"
+    }
+  },
+  "run_id": "bedd9c0d4f75ab8b",
+  "tool": "solgeo-prep",
+  "validation": {
+    "agreement_fraction": 1.0,
+    "candidate_count": 1,
+    "claims_locked": true,
+    "status": "method-preview",
+    "synthetic_fixture": true
+  }
+}

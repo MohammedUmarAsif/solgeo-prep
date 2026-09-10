@@ -1,5 +1,26 @@
 # SolGeo Prep — UAE Desert-Edge Urban Expansion Monitor
 
+## Current flagship project: SolGeo Change Evidence
+
+This repository includes a beginner-friendly, research-grade case study for
+Abu Dhabi urban-edge change. It is built in small modules so the project can be
+learned and recreated rather than treated as a black box.
+
+Start with the [learning path](docs/LEARNING-PATH.md), then follow the
+[reproduction guide](docs/REPRODUCE.md). The full architecture and claim policy
+are in the [Luna handoff](docs/SOLGEO-INTERACTIVE-RESEARCH-SITE-LUNA.md).
+
+Build the offline case bundle:
+
+```powershell
+uv run solgeo-prep case build --config configs/abu-dhabi-urban-edge.yaml --output runs/abu-dhabi-urban-edge-preview
+uv run solgeo-prep case publish --run runs/abu-dhabi-urban-edge-preview --web-root web/public
+```
+
+The current website preview is deliberately synthetic and claim-locked. Real
+Sentinel-2 and AlphaEarth evidence will enter through the same bundle contract
+after source QA and independent labels are available.
+
 A reusable, provenance-first Earth-observation preparation package, with a
 UAE desert-edge urban expansion monitor as its first end-to-end example.
 
